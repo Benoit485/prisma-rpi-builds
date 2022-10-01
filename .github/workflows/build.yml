@@ -34,22 +34,12 @@ jobs:
         run: |-
           cat <<EOF > Cross.toml
             [target.armv7-unknown-linux-gnueabihf]
-            image = "pantharshit00/prisma-armv7-build-image:latest"
+            image = "johnb8/prisma-engine-rpi-build:latest"
           EOF
       
       - name: List files for verification
         run: ls -al && cat Cross.toml
-        
-      - name: Make .cargo dir
-        run: mkdir .cargo
-      
-      - name: Set linker
-        run: |-
-          cat <<EOF > .cargo/config
-            [target.armv7-unknown-linux-gnueabihf]
-            linker = "arm-linux-gnueabihf-gcc"
-          EOF
-          
+           
       - uses: actions-rs/cargo@v1
         with:
           use-cross: true
