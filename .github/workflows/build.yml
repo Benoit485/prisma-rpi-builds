@@ -40,8 +40,15 @@ jobs:
       - name: List files for verification
         run: ls -al && cat Cross.toml
         
+      - name: Make .cargo dir
+        run: mkdir .cargo
+      
       - name: Set linker
-        run: mkdir .cargo && echo "[target.armv7-unknown-linux-gnueabihf]\nlinker = \"arm-linux-gnueabihf-gcc\"" > .cargo/config
+        run: |-
+          cat <<EOF > .cargo/config
+            [target.armv7-unknown-linux-gnueabihf]
+            linker = "arm-linux-gnueabihf-gcc"
+          EOF
           
       - uses: actions-rs/cargo@v1
         with:
