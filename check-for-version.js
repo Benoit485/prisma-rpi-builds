@@ -19,11 +19,7 @@ async function main() {
 
   if (releaseName !== storedVersion) {
     console.log(`New version of Prisma available: ${releaseName}`);
-    
-    // DEPRECATED IN GITHUB
-    //console.log(`::set-output name=new_prisma_version::${releaseName}`);
-    // REPLACED BY :
-    console.log(`echo "new_prisma_version=${releaseName}" >> $GITHUB_OUTPUT`);
+    console.log(`::set-output name=new_prisma_version::${releaseName}`);
   }
 }
 
