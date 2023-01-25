@@ -34,7 +34,7 @@ jobs:
         run: |-
           cat <<EOF > Cross.toml
             [target.armv7-unknown-linux-gnueabihf]
-            image = "johnb8/prisma-engine-rpi-build:latest"
+            image = "pantharshit00/prisma-armv7-build-image"
           EOF
       
       - name: List files for verification
