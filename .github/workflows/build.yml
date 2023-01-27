@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ github.event.inputs.tag }}
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: 'prisma/prisma-engines'
           ref: ${{ github.event.inputs.tag }}
@@ -22,7 +22,7 @@ jobs:
           toolchain: stable
           target: armv7-unknown-linux-gnueabihf
           override: true
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.cargo/registry
