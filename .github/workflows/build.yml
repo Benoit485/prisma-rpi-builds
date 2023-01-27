@@ -40,11 +40,41 @@ jobs:
       - name: List files for verification
         run: ls -al && cat Cross.toml
            
-      - uses: actions-rs/cargo@v1
+      - name: Install cross & query-engine
+        uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
-          args: --target armv7-unknown-linux-gnueabihf --release
+          args: --target armv7-unknown-linux-gnueabihf --release -p query-engine
+             
+      - name: Install query-engine-node-api
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target armv7-unknown-linux-gnueabihf --release -p query-engine-node-api
+             
+      - name: Install prisma-fmt
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target armv7-unknown-linux-gnueabihf --release -p prisma-fmt
+             
+      - name: Install migration-engine-cli
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target armv7-unknown-linux-gnueabihf --release -p migration-engine-cli
+             
+      - name: Install introspection-core
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target armv7-unknown-linux-gnueabihf --release -p introspection-core
+          
       - name: Rename Node API file
         run: |
           mv ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine.so ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine_napi.so.node
