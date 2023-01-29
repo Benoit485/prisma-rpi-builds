@@ -75,10 +75,8 @@ jobs:
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p introspection-core
           
-      - name: Rename Node API file
-        run: |
-          mv ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine.so ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine_napi.so.node
-      - uses: ncipollo/release-action@v1
+      - name: Copy release files
+        uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.event.inputs.tag }}
           commit: master
@@ -90,3 +88,4 @@ jobs:
             ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/migration-engine
             ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/introspection-engine
             ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine_napi.so.node
+
