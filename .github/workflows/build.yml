@@ -40,41 +40,43 @@ jobs:
       - name: List files for verification
         run: ls -al && cat Cross.toml
            
-      - name: Install cross & query-engine
+      - name: Install cross & Build query-engine
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p query-engine
              
-      - name: Install query-engine-node-api
+      - name: Build query-engine-node-api
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p query-engine-node-api
              
-      - name: Install prisma-fmt
+      - name: Build prisma-fmt
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p prisma-fmt
              
-      - name: Install migration-engine-cli
+      - name: Build migration-engine-cli
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p migration-engine-cli
              
-      - name: Install introspection-core
+      - name: Build introspection-core
         uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release -p introspection-core
-          
+      - name: Rename Node API file
+        run: |
+          mv ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine.so ${{ github.workspace }}/target/armv7-unknown-linux-gnueabihf/release/libquery_engine_napi.so.node
       - name: Copy release files
         uses: ncipollo/release-action@v1
         with:
